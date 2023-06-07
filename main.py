@@ -38,6 +38,7 @@ for x in range(settings.GRID_SIZE):
         c.create_btn_object(center_frame)
         c.cell_btn_object.grid(column=x, row=y)
 
+Cell.randomize_mines()
 print("Cell.all = ", end="")
 print(Cell.all)
 

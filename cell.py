@@ -1,4 +1,6 @@
 from tkinter import Button
+import random
+import settings
 
 
 class Cell:
@@ -14,8 +16,7 @@ class Cell:
     def create_btn_object(self, location):
         btn = Button(location,
                      width=6,
-                     height=2,
-                     text=f"{self.x},{self.y}")
+                     height=2)
         # Binding the events
         btn.bind("<Button-1>", self.left_click_action)  # Left Click
         btn.bind("<Button-3>", self.right_click_action)  # Right Click
@@ -29,8 +30,13 @@ class Cell:
         print(event)
         print("RIGHT CLICK!")
 
-    def randomize_mines(self):
-        pass
+    @staticmethod
+    def randomize_mines():
+        picked_cells = random.sample(Cell.all, settings.MINES_COUNT)
+        print("picked_cells = ", end="")
+        print(picked_cells)
+        for picked_cell in picked_cells:
+            picked_cell.is_mine = True
 
     def __repr__(self):
         return f"Cell({self.x},{self.y})"
