@@ -1,26 +1,28 @@
 from tkinter import *
+import settings
+import utils
 
 root = Tk()
 
 # Setup Window
 root.configure(bg="black")
-root.geometry("720x360")
+root.geometry(f"{settings.WIDTH}x{settings.HEIGHT}")
 root.title("Minesweeper Tutorial")
 root.resizable(False, False)
 
 # Title Frame
 top_frame = Frame(root,
                   bg="red",
-                  width=720,
-                  height=90)
+                  width=settings.WIDTH,
+                  height=utils.height_prct(25))
 top_frame.place(x=0, y=0)
 
 # Sidebar Frame
 left_frame = Frame(root,
-                   bg="red",
-                   width=720,
-                   height=90)
-left_frame.place(x=0, y=90)
+                   bg="blue",
+                   width=utils.width_prct(25),
+                   height=utils.height_prct(75))
+left_frame.place(x=0, y=utils.height_prct(25))
 
 # Run Window
 root.mainloop()
