@@ -34,11 +34,11 @@ center_frame.place(x=utils.width_prct(25), y=utils.height_prct(25))
 
 c1 = Cell()
 c1.create_btn_object(center_frame)
-c1.cell_btn_object.place(x=0, y=0)
+c1.cell_btn_object.grid(column=0, row=0)
 
 c2 = Cell()
 c2.create_btn_object(center_frame)
-c2.cell_btn_object.place(x=40, y=0)
+c2.cell_btn_object.grid(column=0, row=1)
 
 # Run Window
 root.mainloop()
