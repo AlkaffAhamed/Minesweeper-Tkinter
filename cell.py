@@ -8,7 +8,7 @@ class Cell:
 
     def __init__(self, x, y, is_mine=False):
         self.is_mine = is_mine
-        self.cell_btn_object = None
+        self.cell_btn_object: Button = None
         self.x = x
         self.y = y
         Cell.all.append(self)  # Append to the Class Attribute
@@ -26,6 +26,9 @@ class Cell:
         if self.is_mine:
             self.show_mine()
         else:
+            if self.surround_cells_mine_len==0:
+                for cell_obj in self.surround_cells:
+                    cell_obj.show_cell()
             self.show_cell()
 
     def right_click_action(self, event):
