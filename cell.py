@@ -11,6 +11,7 @@ class Cell:
     def __init__(self, x, y, is_mine=False):
         self.is_mine = is_mine
         self.is_open = False
+        self.is_mine_candidate = False
         self.cell_btn_object: Button = None
         self.x = x
         self.y = y
@@ -46,8 +47,12 @@ class Cell:
             self.show_cell()
 
     def right_click_action(self, event):
-        print(event)
-        print("RIGHT CLICK!")
+        if not self.is_mine_candidate:
+            self.cell_btn_object.configure(bg="orange")
+            self.is_mine_candidate=True
+        else:
+            self.cell_btn_object.configure(bg="SystemButtonFace")
+            self.is_mine_candidate=False
 
     def show_mine(self):
         # A Logic to do the Game Over
