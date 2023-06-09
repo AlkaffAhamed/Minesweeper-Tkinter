@@ -1,10 +1,11 @@
-from tkinter import Button
+from tkinter import Button, Label
 import random
 import settings
 
 
 class Cell:
     all = []  # Class Attribute
+    cell_count_label_obj: Label = None
 
     def __init__(self, x, y, is_mine=False):
         self.is_mine = is_mine
@@ -22,11 +23,22 @@ class Cell:
         btn.bind("<Button-3>", self.right_click_action)  # Right Click
         self.cell_btn_object = btn
 
+    @staticmethod
+    def create_cell_count_label(location):
+        lbl = Label(location,
+                    text=f"Cells Left: {settings.GRID_SIZE ** 2}",
+                    bg="black",
+                    fg="white",
+                    width=12,
+                    height=4,
+                    font=("", 12))
+        Cell.cell_count_label_obj = lbl
+
     def left_click_action(self, event):
         if self.is_mine:
             self.show_mine()
         else:
-            if self.surround_cells_mine_len==0:
+            if self.surround_cells_mine_len == 0:
                 for cell_obj in self.surround_cells:
                     cell_obj.show_cell()
             self.show_cell()
@@ -82,4 +94,4 @@ class Cell:
             picked_cell.is_mine = True
 
     def __repr__(self):
-        return f"Cell({self.x},{self.y})"
+        return f"Cell({self.x},{self.y},T)" if self.is_mine else f"Cell({self.x},{self.y})"
