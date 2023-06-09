@@ -18,6 +18,13 @@ top_frame = Frame(root,
                   height=utils.height_prct(25))
 top_frame.place(x=0, y=0)
 
+game_title = Label(top_frame,
+                   bg="black",
+                   fg="white",
+                   text="Minesweeper Python",
+                   font=("", 32))
+game_title.place(x=utils.width_prct(25), y=15)
+
 # Sidebar Frame
 left_frame = Frame(root,
                    bg="black",
@@ -37,7 +44,11 @@ for x in range(settings.GRID_SIZE):
     for y in range(settings.GRID_SIZE):
         c = Cell(x, y)
         c.create_btn_object(center_frame)
-        c.cell_btn_object.grid(column=x, row=y)
+        #c.cell_btn_object.grid(column=x, row=y)
+        c.cell_btn_object.place(relx=x/settings.GRID_SIZE,
+                                rely=y/settings.GRID_SIZE,
+                                relwidth=1/settings.GRID_SIZE,
+                                relheight=1/settings.GRID_SIZE)
 
 Cell.randomize_mines()
 print("Cell.all = ", end="")
