@@ -6,6 +6,7 @@ import settings
 class Cell:
     all = []  # Class Attribute
     cell_count_label_obj: Label = None
+    cell_count = settings.GRID_SIZE**2
 
     def __init__(self, x, y, is_mine=False):
         self.is_mine = is_mine
@@ -26,7 +27,7 @@ class Cell:
     @staticmethod
     def create_cell_count_label(location):
         lbl = Label(location,
-                    text=f"Cells Left: {settings.GRID_SIZE ** 2}",
+                    text=f"Cells Left: {Cell.cell_count}",
                     bg="black",
                     fg="white",
                     width=12,
@@ -56,7 +57,10 @@ class Cell:
         print(" = ", end="")
         print(self.surround_cells)
         print(self.surround_cells_mine_len)
+        Cell.cell_count -=1
         self.cell_btn_object.configure(text=self.surround_cells_mine_len)
+        if Cell.cell_count_label_obj:
+            Cell.cell_count_label_obj.configure(text=f"Cells Left: {Cell.cell_count}")
 
     def get_cell_by_axis(self, x, y):
         for cell in Cell.all:
