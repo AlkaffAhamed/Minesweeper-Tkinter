@@ -1,6 +1,7 @@
 from tkinter import Button, Label
 import random
 import settings
+import ctypes
 
 
 class Cell:
@@ -49,14 +50,15 @@ class Cell:
     def right_click_action(self, event):
         if not self.is_mine_candidate:
             self.cell_btn_object.configure(bg="orange")
-            self.is_mine_candidate=True
+            self.is_mine_candidate = True
         else:
             self.cell_btn_object.configure(bg="SystemButtonFace")
-            self.is_mine_candidate=False
+            self.is_mine_candidate = False
 
     def show_mine(self):
-        # A Logic to do the Game Over
         self.cell_btn_object.configure(bg="red")
+        ctypes.windll.user32.MessageBoxW(0, "You clicked on the Mine!", "Game Over!", 0)
+        # Either exit or restart
 
     def show_cell(self):
         if not self.is_open:
@@ -68,6 +70,9 @@ class Cell:
             self.cell_btn_object.configure(text=self.surround_cells_mine_len)
             if Cell.cell_count_label_obj:
                 Cell.cell_count_label_obj.configure(text=f"Cells Left: {Cell.cell_count}")
+            # In case of "mine_candidate", convert to "open"
+            self.cell_btn_object.configure(bg="SystemButtonFace")
+
         self.is_open = True
 
     def get_cell_by_axis(self, x, y):
