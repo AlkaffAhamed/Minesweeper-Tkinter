@@ -46,6 +46,8 @@ class Cell:
                 for cell_obj in self.surround_cells:
                     cell_obj.show_cell()
             self.show_cell()
+            if Cell.cell_count == settings.MINES_COUNT:
+                ctypes.windll.user32.MessageBoxW(0, "Congratulations! You won!", "Game Completed!", 0)
         self.cell_btn_object.unbind("<Button-1>")
         self.cell_btn_object.unbind("<Button-3>")
 
