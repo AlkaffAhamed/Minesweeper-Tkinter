@@ -6,10 +6,11 @@ import settings
 class Cell:
     all = []  # Class Attribute
     cell_count_label_obj: Label = None
-    cell_count = settings.GRID_SIZE**2
+    cell_count = settings.GRID_SIZE ** 2
 
     def __init__(self, x, y, is_mine=False):
         self.is_mine = is_mine
+        self.is_open = False
         self.cell_btn_object: Button = None
         self.x = x
         self.y = y
@@ -53,14 +54,16 @@ class Cell:
         self.cell_btn_object.configure(bg="red")
 
     def show_cell(self):
-        print(self.get_cell_by_axis(self.x, self.y), end="")
-        print(" = ", end="")
-        print(self.surround_cells)
-        print(self.surround_cells_mine_len)
-        Cell.cell_count -=1
-        self.cell_btn_object.configure(text=self.surround_cells_mine_len)
-        if Cell.cell_count_label_obj:
-            Cell.cell_count_label_obj.configure(text=f"Cells Left: {Cell.cell_count}")
+        if not self.is_open:
+            print(self.get_cell_by_axis(self.x, self.y), end="")
+            print(" = ", end="")
+            print(self.surround_cells)
+            print(self.surround_cells_mine_len)
+            Cell.cell_count -= 1
+            self.cell_btn_object.configure(text=self.surround_cells_mine_len)
+            if Cell.cell_count_label_obj:
+                Cell.cell_count_label_obj.configure(text=f"Cells Left: {Cell.cell_count}")
+        self.is_open = True
 
     def get_cell_by_axis(self, x, y):
         for cell in Cell.all:
